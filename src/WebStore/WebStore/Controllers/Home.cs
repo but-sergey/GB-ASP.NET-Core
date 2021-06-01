@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebStore.Models;
 
 namespace WebStore.Controllers
@@ -25,10 +23,25 @@ namespace WebStore.Controllers
             _Configuration = Configuration;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
+
+        public IActionResult Blog() => View();
+
+        public IActionResult BlogSingle() => View();
+
+        public IActionResult Cart() => View();
+
+        public IActionResult Checkout() => View();
+
+        public IActionResult ContactUs() => View();
+
+        public IActionResult Error404() => View();
+
+        public IActionResult Login() => View();
+
+        public IActionResult ProductDetails() => View();
+
+        public IActionResult Shop() => View();
 
         public IActionResult SecondAction()
         {
@@ -38,6 +51,16 @@ namespace WebStore.Controllers
         public IActionResult Employees()
         {
             return View(__Employees);
+        }
+
+        public IActionResult EmployeDetails(int id)
+        {
+            var employee = __Employees.FirstOrDefault(employee => employee.Id == id);
+
+            if (employee == null)
+                return NotFound();
+
+            return View(employee);
         }
     }
 }

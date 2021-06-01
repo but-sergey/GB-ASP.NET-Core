@@ -28,10 +28,11 @@ namespace WebStore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             //var greetings = Configuration["Greetings"];
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGet("/greetings", async context =>

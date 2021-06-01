@@ -1,16 +1,9 @@
 ﻿@model IEnumerable<WebStore.Models.Employee>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Employees</title>
-</head>
-<body>
+<div class="container">
     <h3>Сотрудники магазина</h3>
-    <hr/>
-    <table>
+    <hr />
+    <table class="table">
         <thead>
             <tr>
                 <th>#</th>
@@ -18,23 +11,28 @@
                 <th>Имя</th>
                 <th>Отчество</th>
                 <th>Возраст</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var employee in Model)
+            @foreach (var employee in Model)
             {
-            <tr>
-                <td>@employee.Id</td>
-                <td>@employee.LastName</td>
-                <td>@employee.FirstName</td>
-                <td>@employee.Patronymic</td>
-                <td>@employee.Age</td>
-            </tr>
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.LastName</td>
+                    <td>@employee.FirstName</td>
+                    <td>@employee.Patronymic</td>
+                    <td>@employee.Age</td>
+                    <td>
+                        <a asp-controller="Home" asp-action="EmployeDetails" asp-route-id="@employee.Id">
+                            <i class="fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
     <p>
-        <a href="/">На главную</a>
+        <a asp-controller="Home" asp-action="Index">На главную</a>
     </p>
-</body>
-</html>
+</div>
