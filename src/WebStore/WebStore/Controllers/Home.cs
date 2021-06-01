@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Linq;
 using WebStore.Models;
 
 namespace WebStore.Controllers
@@ -50,6 +51,16 @@ namespace WebStore.Controllers
         public IActionResult Employees()
         {
             return View(__Employees);
+        }
+
+        public IActionResult EmployeDetails(int id)
+        {
+            var employee = __Employees.FirstOrDefault(employee => employee.Id == id);
+
+            if (employee == null)
+                return NotFound();
+
+            return View(employee);
         }
     }
 }
