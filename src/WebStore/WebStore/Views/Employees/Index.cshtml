@@ -24,8 +24,8 @@
                     <td>@employee.Patronymic</td>
                     <td>@employee.Age</td>
                     <td>
-                        <a asp-controller="Home" asp-action="EmployeDetails" asp-route-id="@employee.Id">
-                            <i class="fa-edit"></i>
+                        <a asp-action="Details" asp-route-id="@employee.Id">
+                            info
                         </a>
                     </td>
                 </tr>
