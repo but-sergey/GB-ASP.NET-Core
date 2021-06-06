@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebStore.Models;
+using WebStore.Services.Interfaces;
 
 namespace WebStore.Controllers
 {
@@ -11,17 +12,21 @@ namespace WebStore.Controllers
     //[Route("Employees")]
     public class EmployeesController : Controller
     {
+        private readonly IEmployeesData _EmployeesData;
+
+        public EmployeesController(IEmployeesData EmployeesData) { _EmployeesData = EmployeesData; }
+
         //[Route("all")]
         public IActionResult Index()
         {
-            return View(__Employees);
+            return View(_EmployeesData.GetAll());
         }
 
         //[Route("info/{id}")]
         //[Route("info-id-{id}")]
         public IActionResult Details(int id)
         {
-            var employee = __Employees.FirstOrDefault(employee => employee.Id == id);
+            var employee = _EmployeesData.Get(id);
 
             if (employee == null)
                 return NotFound();

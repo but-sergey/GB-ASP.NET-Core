@@ -8,6 +8,8 @@ using System.IO;
 using System.Threading.Tasks;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.MiddleWare;
+using WebStore.Services;
+using WebStore.Services.Interfaces;
 
 namespace WebStore
 {
@@ -22,6 +24,8 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+
             services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
                 .AddRazorRuntimeCompilation();
         }
