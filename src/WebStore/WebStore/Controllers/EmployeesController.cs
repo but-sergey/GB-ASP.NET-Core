@@ -57,6 +57,15 @@ namespace WebStore.Controllers
         [HttpPost]
         public IActionResult Edit(EmployeeViewModel Model)
         {
+            if (Model.LastName == "Qwe")
+                ModelState.AddModelError("LastName", "Qwe - плохое имя!");
+
+            if (Model.LastName == "Asd" && Model.Name == "Qwe")
+                ModelState.AddModelError("", "Странное сочетание имени и фамилии");
+
+            if (!ModelState.IsValid)
+                return View(Model);
+
             var employee = new Employee
             {
                 Id = Model.Id,
