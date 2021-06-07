@@ -4,6 +4,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.IO;
+using System.Threading.Tasks;
+using WebStore.Infrastructure.Conventions;
+using WebStore.Infrastructure.MiddleWare;
+using WebStore.Services;
+using WebStore.Services.Interfaces;
 
 namespace WebStore
 {
@@ -18,7 +24,10 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+
+            services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
+                .AddRazorRuntimeCompilation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -31,6 +40,23 @@ namespace WebStore
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseMiddleware<TestMiddleWare>();
+
+            //app.Use(async (context, next) =>
+            //{
+            //    await next();
+            //});
+
+            //app.Map("/TestMapRequest", opt => opt.Run(async context =>
+            //{
+            //    await Task.Delay(100);
+            //    var stream_writer = new StreamWriter(context.Response.Body);
+            //    await stream_writer.WriteAsync("Hello from TestMapRequest");
+            //    await context.Response.CompleteAsync();
+            //}));
+
+            app.UseWelcomePage("/WelcomePage");
 
             //var greetings = Configuration["Greetings"];
             app.UseEndpoints(endpoints =>
