@@ -30,13 +30,15 @@ namespace WebStore
             //services.AddScoped<IPrinter, DebugPrinter>();
 
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();   // ќбъект создаетс€ один раз на все врем€ работы приложени€
-            // нужен если сервис должен хранить состо€ние на врем€ работы приложени€
-            
+                                                                              // нужен если сервис должен хранить состо€ние на врем€ работы приложени€
+
             //services.AddScoped<IEmployeesData, InMemoryEmployeesData>();      // ќбъект создаетс€ на врем€ жизни некоторой области
             // если нужен сервис, который обладаем пам€тью только в пределах обработки одного запроса
 
             //services.AddTransient<IEmployeesData, InMemoryEmployeesData>();   // ќбъект создаетс€ каждый раз заново
             // когда сервис не подразумевает наличие внутренней пам€ти
+
+            services.AddSingleton<IProductData, InMemoryProductData>();
 
             services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
                 .AddRazorRuntimeCompilation();
