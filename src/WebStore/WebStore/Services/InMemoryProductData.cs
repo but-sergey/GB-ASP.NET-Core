@@ -10,7 +10,7 @@ namespace WebStore.Services
 {
     public class InMemoryProductData : IProductData
     {
-        public IEnumerable<Section> GetSection() => TestData.Sections;
+        public IEnumerable<Section> GetSections() => TestData.Sections;
 
         public IEnumerable<Brand> GetBrands() => TestData.Brands;
     }
