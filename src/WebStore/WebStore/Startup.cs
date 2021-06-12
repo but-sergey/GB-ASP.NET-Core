@@ -11,7 +11,8 @@ using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.MiddleWare;
-using WebStore.Services;
+using WebStore.Services.InMemory;
+using WebStore.Services.InSQL;
 using WebStore.Services.Interfaces;
 
 namespace WebStore
@@ -34,10 +35,13 @@ namespace WebStore
 
             services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
 
-            services.AddSingleton<IProductData, InMemoryProductData>();
+            if (Configuration["ProductDataSource"] == "db")
+                services.AddScoped<IProductData, SQLProductData>();
+            else
+                services.AddSingleton<IProductData, InMemoryProductData>();
 
-            services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
-                .AddRazorRuntimeCompilation();
+                services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
+                    .AddRazorRuntimeCompilation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
