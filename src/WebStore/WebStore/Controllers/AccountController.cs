@@ -75,7 +75,7 @@ namespace WebStore.Controllers
                 //    return Redirect(Model.ReturnUrl);
                 //else
                 //    return RedirectToAction("Index", "Home");
-                return LocalRedirect(Model.ReturnUrl);
+                return LocalRedirect(Model.ReturnUrl ?? "/");
             }
 
             ModelState.AddModelError("", "Ошибка в имени пользователя либо в пароле");
