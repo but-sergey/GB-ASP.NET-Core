@@ -57,7 +57,7 @@ namespace WebStore.Services.InCookies
         {
             var cart = Cart;
 
-            var item = Cart.Items.FirstOrDefault(i => i.ProductId == Id);
+            var item = cart.Items.FirstOrDefault(i => i.ProductId == Id);
             if (item is null)
                 cart.Items.Add(new CartItem { ProductId = Id });
             else
