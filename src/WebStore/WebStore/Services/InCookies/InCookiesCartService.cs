@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
 using System.Linq;
+using WebStore.Domain;
 using WebStore.Domain.Entities;
+using WebStore.Infrastructure.Mapping;
 using WebStore.Services.Interfaces;
 using WebStore.ViewModels;
 
@@ -102,6 +103,21 @@ namespace WebStore.Services.InCookies
             Cart = cart;
         }
 
-        public CartViewModel GetViewModel() { throw new NotImplementedException(); }
+        public CartViewModel GetViewModel()
+        {
+            var products = _ProductData.GetProducts(new ProductFilter
+            {
+                Ids = Cart.Items.Select(item => item.ProductId).ToArray()
+            });
+
+            var products_views = products.ToView().ToDictionary(p => p.Id);
+
+            return new CartViewModel
+            {
+                Items = Cart.Items
+                .Where(item => products_views.ContainsKey(item.ProductId))
+                .Select(item => (products_views[item.ProductId], item.Quantity))
+            };
+        }
     }
 }
