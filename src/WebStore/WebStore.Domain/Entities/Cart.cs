@@ -9,11 +9,4 @@ namespace WebStore.Domain.Entities
 
         public int ItemsCount => Items?.Sum(item => item.Quantity) ?? 0;
     }
-
-    public class CartItem
-    {
-        public int ProductId { get; set; }
-
-        public int Quantity { get; set; }
-    }
 }
