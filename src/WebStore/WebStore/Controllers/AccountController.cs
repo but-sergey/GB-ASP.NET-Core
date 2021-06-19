@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
@@ -8,6 +9,7 @@ using WebStore.ViewModels;
 
 namespace WebStore.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _UserManager;
@@ -26,8 +28,10 @@ namespace WebStore.Controllers
 
         #region Register
 
+        [AllowAnonymous]
         public IActionResult Register() => View(new RegisterUserViewModel());
 
+        [AllowAnonymous]
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterUserViewModel Model)
         {
@@ -43,9 +47,17 @@ namespace WebStore.Controllers
             var register_result = await _UserManager.CreateAsync(user, Model.Password);
             if (register_result.Succeeded)
             {
-                await _SignInManager.SignInAsync(user, false);
-
                 _Logger.LogInformation("Пользователь {0} успешно зарегистрирован", user.UserName);
+
+                await _UserManager.AddToRoleAsync(user, Role.Users);
+
+                _Logger.LogInformation("Пользователю {0} назначена роль {1}",
+                    user.UserName, Role.Users);
+
+                await _SignInManager.SignInAsync(user, false);
+                //await _UserManager.RemoveFromRoleAsync(user, Role.Administrators);
+
+                _Logger.LogInformation("Пользователь {0} автоматически вошел в систему после регистрации", user.UserName);
 
                 return RedirectToAction("Index", "Home");
             }
@@ -64,8 +76,10 @@ namespace WebStore.Controllers
 
         #region Login
 
+        [AllowAnonymous]
         public IActionResult Login(string ReturnUrl) => View(new LoginViewModel { ReturnUrl = ReturnUrl });
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel Model)
@@ -106,6 +120,7 @@ namespace WebStore.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         public IActionResult AccessDenied() => View();
     }
 }
