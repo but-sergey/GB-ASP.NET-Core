@@ -37,13 +37,6 @@ namespace WebStore.Controllers
             if (product is null)
                 return NotFound();
 
-            //return View(new ProductViewModel
-            //{
-            //    Id = product.Id,
-            //    Name = product.Name,
-            //    Price = product.Price,
-            //    ImageUrl = product.ImageUrl
-            //});
             return View(product.ToView());
         }
     }
