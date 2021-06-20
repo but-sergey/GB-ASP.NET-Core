@@ -1,12 +1,13 @@
-﻿using WebStore.Domain.Entities.Base;
-
-namespace WebStore.Domain.Entities
+﻿namespace WebStore.Domain.Entities
 {
-    public class Employee : Entity
+    public class Employee
     {
+        public int Id { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public string Patronymic { get; set; }
         public int Age { get; set; }
     }
+
+    //public record Employee2(int Id, string FirstName, string LastName, string Patronymic, int Age);
 }
