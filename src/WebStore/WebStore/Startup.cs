@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,14 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //var connection_string = new SqlConnectionStringBuilder(Configuration.GetConnectionString("MSSQL"))
+            //{
+            //    UserID = "qwe",
+            //    Password = "asd",
+            //};
+            //var connection_string_with_password = connection_string.ConnectionString;
+
+
             services.AddDbContext<WebStoreDB>(opt =>
                 opt.UseSqlServer(Configuration.GetConnectionString("MSSQL")/*, o => o.MigrationsAssembly("WebStore.DAL.SqlServer")*/));
 
@@ -71,7 +80,8 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            services.AddScoped<IEmployeesData, SqlEmployeesData>();
 
             services.AddScoped<ICartService, InCookiesCartService>();
 
