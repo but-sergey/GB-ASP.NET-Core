@@ -90,8 +90,10 @@ namespace WebStore
             else
                 services.AddSingleton<IProductData, InMemoryProductData>();
 
-                services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
-                    .AddRazorRuntimeCompilation();
+            services.AddScoped<IOrderService, SqlOrderService>();
+
+            services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
+                .AddRazorRuntimeCompilation();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
