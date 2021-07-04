@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 
-namespace WebStore.Data
+namespace WebStore.Services.Data
 {
     public class WebStoreDBInitializer
     {
@@ -37,7 +37,7 @@ namespace WebStore.Data
             //_db.Database.EnsureDeleted();
             //_db.Database.EnsureCreated();
 
-            if(_db.Database.GetPendingMigrations().Any())
+            if (_db.Database.GetPendingMigrations().Any())
             {
                 _Logger.LogInformation("Миграция БД...");
 
@@ -105,7 +105,7 @@ namespace WebStore.Data
             foreach (var product in TestData.Products)
             {
                 product.Section = sections_pool[product.SectionId];
-                if(product.BrandId is { } brand_id)
+                if (product.BrandId is { } brand_id)
                     product.Brand = brands_pool[brand_id];
 
                 product.Id = 0;
@@ -154,7 +154,7 @@ namespace WebStore.Data
             await CheckRole(Role.Administrators);
             await CheckRole(Role.Users);
 
-            if(await _UserManager.FindByNameAsync(User.Administrator) is null)
+            if (await _UserManager.FindByNameAsync(User.Administrator) is null)
             {
                 _Logger.LogInformation("Пользователь {0} отсутствует. Создаю...", User.Administrator);
 
@@ -164,7 +164,7 @@ namespace WebStore.Data
                 };
 
                 var creation_result = await _UserManager.CreateAsync(admin, User.DefaultAdminPassord);
-                
+
                 if (creation_result.Succeeded)
                 {
                     _Logger.LogInformation("Пользователь {0} успешно создан", User.Administrator);

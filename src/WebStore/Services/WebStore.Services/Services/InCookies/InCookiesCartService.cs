@@ -4,10 +4,10 @@ using System.Linq;
 using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Domain.ViewModels;
-using WebStore.Infrastructure.Mapping;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Mapping;
 
-namespace WebStore.Services.InCookies
+namespace WebStore.Services.Services.InCookies
 {
     public class InCookiesCartService : ICartService
     {
@@ -23,7 +23,7 @@ namespace WebStore.Services.InCookies
                 var cookies = context!.Response.Cookies;
 
                 var cart_cookie = context.Request.Cookies[_CartName];
-                if(cart_cookie is null)
+                if (cart_cookie is null)
                 {
                     var cart = new Cart();
                     cookies.Append(_CartName, JsonConvert.SerializeObject(cart));

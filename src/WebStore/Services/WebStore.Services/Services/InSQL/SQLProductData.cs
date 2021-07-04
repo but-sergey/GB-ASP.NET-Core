@@ -6,7 +6,7 @@ using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Services.InSQL
+namespace WebStore.Services.Services.InSQL
 {
     public class SQLProductData : IProductData
     {
@@ -24,7 +24,7 @@ namespace WebStore.Services.InSQL
                 .Include(p => p.Brand)
                 .Include(p => p.Section);
 
-            if(Filter?.Ids?.Length > 0)
+            if (Filter?.Ids?.Length > 0)
             {
                 query = query.Where(product => Filter.Ids.Contains(product.Id));
             }

@@ -6,7 +6,7 @@ using WebStore.DAL.Context;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 
-namespace WebStore.Services.InSQL
+namespace WebStore.Services.Services.InSQL
 {
     public class SqlEmployeesData : IEmployeesData
     {
@@ -34,7 +34,7 @@ namespace WebStore.Services.InSQL
             var employee = _db.Employees
                 .Select(e => new Employee { Id = e.Id })
                 .FirstOrDefault(e => e.Id == id);
-            
+
             if (employee is null) return false;
 
             //if (Get(id) is not { } employee) return false;
