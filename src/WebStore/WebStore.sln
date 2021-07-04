@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore", "UI\WebStore\Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Interfaces", "Services\WebStore.Interfaces\WebStore.Interfaces.csproj", "{A09DA8AB-E345-40CB-AA6F-80DD296830B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Services", "Services\WebStore.Services\WebStore.Services.csproj", "{403C4FC3-16C8-4FB0-961B-0F8A76CBE503}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Services", "Services\WebStore.Services\WebStore.Services.csproj", "{403C4FC3-16C8-4FB0-961B-0F8A76CBE503}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.WebAPI", "Services\WebStore.WebAPI\WebStore.WebAPI.csproj", "{0C39E0C6-8B8B-46DE-BB23-3C5D75E79914}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{403C4FC3-16C8-4FB0-961B-0F8A76CBE503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{403C4FC3-16C8-4FB0-961B-0F8A76CBE503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{403C4FC3-16C8-4FB0-961B-0F8A76CBE503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C39E0C6-8B8B-46DE-BB23-3C5D75E79914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C39E0C6-8B8B-46DE-BB23-3C5D75E79914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C39E0C6-8B8B-46DE-BB23-3C5D75E79914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C39E0C6-8B8B-46DE-BB23-3C5D75E79914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{A5BD916C-0AF0-4F15-A067-AD52DBBB6F6D} = {F601F52D-011D-4CB7-9F54-246F74F80D58}
 		{A09DA8AB-E345-40CB-AA6F-80DD296830B7} = {C71A7441-4B66-414D-8ED7-D564FB898A73}
 		{403C4FC3-16C8-4FB0-961B-0F8A76CBE503} = {C71A7441-4B66-414D-8ED7-D564FB898A73}
+		{0C39E0C6-8B8B-46DE-BB23-3C5D75E79914} = {C71A7441-4B66-414D-8ED7-D564FB898A73}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7B7A17A5-D5D1-47A3-9F63-886440CE50DA}
