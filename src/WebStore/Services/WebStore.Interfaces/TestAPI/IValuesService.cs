@@ -2,7 +2,7 @@
 
 namespace WebStore.Interfaces.TestAPI
 {
-    interface IValuesService
+    public interface IValuesService
     {
         IEnumerable<string> GetAll();
 
@@ -12,6 +12,6 @@ namespace WebStore.Interfaces.TestAPI
 
         void Edit(int index, string str);
 
-        void Delete(int index);
+        bool Delete(int index);
     }
 }
