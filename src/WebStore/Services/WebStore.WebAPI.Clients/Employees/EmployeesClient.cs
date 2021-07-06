@@ -9,7 +9,7 @@ namespace WebStore.WebAPI.Clients.Employees
 {
     public class EmployeesClient : BaseClient, IEmployeesData
     {
-        public EmployeesClient(HttpClient Client) : base(Client, "api/employees") { }\
+        public EmployeesClient(HttpClient Client) : base(Client, "api/employees") { }
 
         public IEnumerable<Employee> GetAll()
         {

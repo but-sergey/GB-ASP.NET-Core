@@ -31,6 +31,7 @@ namespace WebStore.WebAPI.Controllers
             return Ok(id);
         }
 
+        [HttpPut]
         public IActionResult Update(Employee employee)
         {
             _EmployeesData.Update(employee);
