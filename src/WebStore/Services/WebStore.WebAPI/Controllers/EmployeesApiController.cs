@@ -38,7 +38,7 @@ namespace WebStore.WebAPI.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public IActionResult Delete(int id)
         {
             var result = _EmployeesData.Delete(id);
