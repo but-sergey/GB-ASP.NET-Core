@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Json;
 using WebStore.Domain;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces;
@@ -13,16 +13,21 @@ namespace WebStore.WebAPI.Clients.Products
     {
         public ProductsClient(HttpClient Client) : base(Client, WebAPIAddress.Products) { }
 
-        public Brand GetBrand(int id) { throw new NotImplementedException(); }
+        public Brand GetBrand(int id) => Get<Brand>($"{Address}/brands/{id}");
 
-        public IEnumerable<Brand> GetBrands() { throw new NotImplementedException(); }
+        public IEnumerable<Brand> GetBrands() => Get<IEnumerable<Brand>>($"{Address}/brands");
 
-        public Product GetProductById(int Id) { throw new NotImplementedException(); }
+        public Product GetProductById(int Id) => Get<Product>($"{Address}/{Id}");
 
-        public IEnumerable<Product> GetProducts(ProductFilter Filter = null) { throw new NotImplementedException(); }
+        public IEnumerable<Product> GetProducts(ProductFilter Filter = null)
+        {
+            var response = Post(Address, Filter);
+            var products = response.Content.ReadFromJsonAsync<IEnumerable<Product>>().Result;
+            return products;
+        }
 
-        public Section GetSection(int id) { throw new NotImplementedException(); }
+        public Section GetSection(int id) => Get<Section>($"{Address}/sectioins/{id}");
 
-        public IEnumerable<Section> GetSections() { throw new NotImplementedException(); }
+        public IEnumerable<Section> GetSections() => Get<IEnumerable<Section>>($"{Address}/sections");
     }
 }
