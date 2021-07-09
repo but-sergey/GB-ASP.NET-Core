@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain;
-using WebStore.Domain.DTO;
+using WebStore.Domain.DTO.Products;
 using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
 

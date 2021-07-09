@@ -2,7 +2,7 @@
 using System.Linq;
 using WebStore.Domain.Entities;
 
-namespace WebStore.Domain.DTO
+namespace WebStore.Domain.DTO.Products
 {
     public static class BrandDTOMapper
     {

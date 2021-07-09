@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using WebStore.Domain;
-using WebStore.Domain.DTO;
+using WebStore.Domain.DTO.Products;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
