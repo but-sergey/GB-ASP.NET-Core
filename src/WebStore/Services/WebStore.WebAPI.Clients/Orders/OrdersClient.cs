@@ -22,7 +22,7 @@ namespace WebStore.WebAPI.Clients.Orders
                 Items = Cart.ToDTO(),
                 Order = OrderModel,
             };
-            var response = await PostAsync($"{Address}/{UserName}", create_order_model);
+            var response = await PostAsync($"{Address}/{UserName}", create_order_model).ConfigureAwait(false);
             var order_dto = await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<OrderDTO>().ConfigureAwait(false);
             return order_dto.FromDTO();
         }
