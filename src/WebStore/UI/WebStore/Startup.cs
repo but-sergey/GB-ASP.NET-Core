@@ -2,23 +2,19 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
-using WebStore.DAL.Context;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.MiddleWare;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
-using WebStore.Services.Data;
 using WebStore.Services.Services.InCookies;
-using WebStore.Services.Services.InMemory;
-using WebStore.Services.Services.InSQL;
 using WebStore.WebAPI.Clients.Employees;
+using WebStore.WebAPI.Clients.Identity;
 using WebStore.WebAPI.Clients.Orders;
 using WebStore.WebAPI.Clients.Products;
 using WebStore.WebAPI.Clients.Values;
@@ -36,22 +32,11 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //var connection_string = new SqlConnectionStringBuilder(Configuration.GetConnectionString("MSSQL"))
-            //{
-            //    UserID = "qwe",
-            //    Password = "asd",
-            //};
-            //var connection_string_with_password = connection_string.ConnectionString;
-
-
-            services.AddDbContext<WebStoreDB>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("MSSQL")/*, o => o.MigrationsAssembly("WebStore.DAL.SqlServer")*/));
-
-            services.AddTransient<WebStoreDBInitializer>();
-
-            services.AddIdentity<User, Role>(/*opt => { }*/)
-                .AddEntityFrameworkStores<WebStoreDB>()
+            services.AddIdentity<User, Role>()
+                .AddIdentityWebStoreWebAPIClients()
                 .AddDefaultTokenProviders();
+
+            //services.AddIdentityWebStoreWebAPIClients();
 
             services.Configure<IdentityOptions>(opt =>
             {
@@ -84,17 +69,7 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            //services.AddScoped<IEmployeesData, SqlEmployeesData>();
-
             services.AddScoped<ICartService, InCookiesCartService>();
-            //services.AddScoped<IProductData, SQLProductData>();
-            //services.AddScoped<IOrderService, SqlOrderService>();
-
-            //services.AddHttpClient<IValuesService, ValuesClient>(client => client.BaseAddress = new Uri(Configuration["WebAPI"]));
-            //services.AddHttpClient<IEmployeesData, EmployeesClient>(client => client.BaseAddress = new Uri(Configuration["WebAPI"]));
-            //services.AddHttpClient<IProductData, ProductsClient>(client => client.BaseAddress = new Uri(Configuration["WebAPI"]));
-            //services.AddHttpClient<IOrderService, OrdersClient>(client => client.BaseAddress = new Uri(Configuration["WebAPI"]));
 
             services.AddHttpClient("WebStoreAPI", client => client.BaseAddress = new Uri(Configuration["WebAPI"]))
                 .AddTypedClient<IValuesService, ValuesClient>()
@@ -107,14 +82,8 @@ namespace WebStore
                 .AddRazorRuntimeCompilation();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //var initializer = services.GetRequiredService<WebStoreDBInitializer>();
-            //initializer.Initialize();
-
-            using (var scope = services.CreateScope())
-                scope.ServiceProvider.GetRequiredService<WebStoreDBInitializer>().Initialize();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
