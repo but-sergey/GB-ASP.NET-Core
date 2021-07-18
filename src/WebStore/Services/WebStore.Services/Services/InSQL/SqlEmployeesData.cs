@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,13 @@ namespace WebStore.Services.Services.InSQL
     public class SqlEmployeesData : IEmployeesData
     {
         private readonly WebStoreDB _db;
+        private readonly ILogger<SqlEmployeesData> _Logger;
 
-        public SqlEmployeesData(WebStoreDB db) => _db = db;
+        public SqlEmployeesData(WebStoreDB db, ILogger<SqlEmployeesData> Logger)
+        {
+            _db = db;
+            _Logger = Logger;
+        }
 
         public int Add(Employee employee)
         {
@@ -23,6 +29,8 @@ namespace WebStore.Services.Services.InSQL
             _db.Add(employee);
 
             _db.SaveChanges();
+
+            _Logger.LogInformation($"Сотрудник {employee} добавлен");
 
             return employee.Id;
         }
@@ -45,6 +53,8 @@ namespace WebStore.Services.Services.InSQL
 
             _db.SaveChanges();
 
+            _Logger.LogInformation($"Сотрудник id:{id} удален");
+
             return true;
         }
 
@@ -60,6 +70,8 @@ namespace WebStore.Services.Services.InSQL
             //_db.Employees.Update(employee);
             //_db.Entry(employee).State = EntityState.Modified;
             _db.Update(employee);
+
+            _Logger.LogInformation($"Сотрудник {employee} отредактирован");
 
             _db.SaveChanges();
         }
