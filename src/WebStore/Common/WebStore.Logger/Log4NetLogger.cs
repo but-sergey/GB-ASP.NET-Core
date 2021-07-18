@@ -1,5 +1,4 @@
 ﻿using log4net;
-using log4net.Core;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Reflection;

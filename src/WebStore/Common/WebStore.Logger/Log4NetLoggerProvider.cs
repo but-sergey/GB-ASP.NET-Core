@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Xml;
+using Microsoft.Extensions.Logging;
 
 namespace WebStore.Logger
 {
@@ -11,7 +11,7 @@ namespace WebStore.Logger
 
         public Log4NetLoggerProvider(string ConfigurationFile) => _ConfigurationFile = ConfigurationFile;
 
-        public ILogger CreateLogger(string Category) => 
+        public ILogger CreateLogger(string Category) =>
             __Loggers.GetOrAdd(Category, category =>
             {
                 var xml = new XmlDocument();
