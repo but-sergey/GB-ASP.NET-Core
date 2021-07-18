@@ -30,7 +30,7 @@ namespace WebStore.Services.Services.InSQL
 
             _db.SaveChanges();
 
-            _Logger.LogInformation($"Сотрудник {employee.LastName} {employee.FirstName} {employee.Patronymic} добавлен");
+            _Logger.LogInformation($"Сотрудник {employee} добавлен");
 
             return employee.Id;
         }
@@ -53,6 +53,8 @@ namespace WebStore.Services.Services.InSQL
 
             _db.SaveChanges();
 
+            _Logger.LogInformation($"Сотрудник id:{id} удален");
+
             return true;
         }
 
@@ -68,6 +70,8 @@ namespace WebStore.Services.Services.InSQL
             //_db.Employees.Update(employee);
             //_db.Entry(employee).State = EntityState.Modified;
             _db.Update(employee);
+
+            _Logger.LogInformation($"Сотрудник {employee} отредактирован");
 
             _db.SaveChanges();
         }
