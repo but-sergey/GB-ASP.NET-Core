@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Linq;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Mapping;
@@ -21,6 +22,8 @@ namespace WebStore.Controllers
             ViewBag.Products = ProductData.GetProducts().Take(9).ToView();
             return View();
         }
+
+        public IActionResult Throw(string Message) => throw new ApplicationException(Message ?? "Error in Main controller");
 
         public IActionResult Blog() => View();
 
