@@ -45,7 +45,8 @@ namespace WebStore.Controllers
 
         public IActionResult SecondAction()
         {
-            return View("Index");
+            return Content(_Configuration["Greetings"]);
+            //return View("Index");
         }
     }
 }
