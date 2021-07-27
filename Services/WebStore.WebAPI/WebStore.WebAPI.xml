@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebStore.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:WebStore.WebAPI.Controllers.OrdersApiController">
+            <summary>Управление заказами</summary>
+        </member>
+        <member name="M:WebStore.WebAPI.Controllers.OrdersApiController.GetUserOrders(System.String)">
+            <summary>Получениесписка заказов указанного по имени пользователя</summary>
+            <param name="UserName">Имя пользователя</param>
+            <returns>Список заказов</returns>
+        </member>
+        <member name="M:WebStore.WebAPI.Controllers.OrdersApiController.GetOrderById(System.Int32)">
+            <summary>Получение заказа по его идентификатору</summary>
+            <param name="id">Идентификатор заказа</param>
+        </member>
+        <member name="M:WebStore.WebAPI.Controllers.OrdersApiController.CreateOrder(System.String,WebStore.Domain.DTO.Orders.CreateOrderDTO)">
+            <summary>Создание заказа</summary>
+            <param name="UserName">Имя пользователя</param>
+            <param name="OrderModel">Информация о заказе</param>
+            <returns>Созданные заказ</returns>
+        </member>
+    </members>
+</doc>
