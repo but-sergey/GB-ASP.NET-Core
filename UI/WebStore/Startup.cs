@@ -95,8 +95,9 @@ namespace WebStore
             //var initializer = services.GetRequiredService<WebStoreDBInitializer>();
             //initializer.Initialize();
 
-            using (var scope = services.CreateScope())
-                scope.ServiceProvider.GetRequiredService<WebStoreDBInitializer>().Initialize();
+            //using (var scope = services.CreateScope())
+            //    scope.ServiceProvider.GetRequiredService<WebStoreDBInitializer>().Initialize();
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
