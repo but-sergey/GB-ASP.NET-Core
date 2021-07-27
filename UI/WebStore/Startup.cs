@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using WebStore.Domain.Entities.Identity;
@@ -13,6 +14,8 @@ using WebStore.Infrastructure.MiddleWare;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 using WebStore.Services.Services;
+using WebStore.Logger;
+using WebStore.Services.Data;
 using WebStore.Services.Services.InCookies;
 using WebStore.WebAPI.Clients.Employees;
 using WebStore.WebAPI.Clients.Identity;
@@ -85,8 +88,15 @@ namespace WebStore
                 .AddRazorRuntimeCompilation();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services, ILoggerFactory log)
         {
+            log.AddLog4Net();
+
+            //var initializer = services.GetRequiredService<WebStoreDBInitializer>();
+            //initializer.Initialize();
+
+            using (var scope = services.CreateScope())
+                scope.ServiceProvider.GetRequiredService<WebStoreDBInitializer>().Initialize();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
