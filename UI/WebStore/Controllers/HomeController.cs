@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Linq;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Mapping;
@@ -22,6 +23,8 @@ namespace WebStore.Controllers
             return View();
         }
 
+        public IActionResult Throw(string Message) => throw new ApplicationException(Message ?? "Error in Main controller");
+
         public IActionResult Blog() => View();
 
         public IActionResult BlogSingle() => View();
@@ -42,7 +45,8 @@ namespace WebStore.Controllers
 
         public IActionResult SecondAction()
         {
-            return View("Index");
+            return Content(_Configuration["Greetings"]);
+            //return View("Index");
         }
     }
 }

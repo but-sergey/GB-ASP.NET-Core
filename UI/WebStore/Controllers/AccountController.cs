@@ -103,7 +103,6 @@ namespace WebStore.Controllers
             if (login_result.Succeeded)
             {
                 _Logger.LogInformation("Пользователь {0} успешно вошел в систему", Model.UserName);
-
                 //return Redirect(Model.ReturnUrl); // не безопасно
                 //if (Url.IsLocalUrl(Model.ReturnUrl))
                 //    return Redirect(Model.ReturnUrl);

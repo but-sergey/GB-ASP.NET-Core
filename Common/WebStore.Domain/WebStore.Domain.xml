@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebStore.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:WebStore.Domain.DTO.Orders.OrderDTO">
+            <summary>Заказ</summary>
+        </member>
+        <member name="P:WebStore.Domain.DTO.Orders.OrderDTO.Id">
+            <summary>Идентификатор</summary>
+        </member>
+        <member name="P:WebStore.Domain.DTO.Orders.OrderDTO.Name">
+            <summary>Наименование</summary>
+        </member>
+        <member name="P:WebStore.Domain.DTO.Orders.OrderDTO.Phone">
+            <summary>Телефонный номер</summary>
+        </member>
+        <member name="P:WebStore.Domain.DTO.Orders.OrderDTO.Address">
+            <summary>Адрес заказа</summary>
+        </member>
+        <member name="P:WebStore.Domain.DTO.Orders.OrderDTO.Date">
+            <summary>Дата формирования заказа</summary>
+        </member>
+        <member name="P:WebStore.Domain.DTO.Orders.OrderDTO.Items">
+            <summary>Пункты заказа</summary>
+        </member>
+    </members>
+</doc>

@@ -13,6 +13,7 @@ using WebStore.Infrastructure.Conventions;
 using WebStore.Infrastructure.MiddleWare;
 using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
+using WebStore.Services.Services;
 using WebStore.Logger;
 using WebStore.Services.Data;
 using WebStore.Services.Services.InCookies;
@@ -72,7 +73,9 @@ namespace WebStore
                 opt.SlidingExpiration = true;
             });
 
-            services.AddScoped<ICartService, InCookiesCartService>();
+            //services.AddScoped<ICartService, InCookiesCartService>();
+            services.AddScoped<ICartStore, InCookiesCartStore>();
+            services.AddScoped<ICartService, CartService>();
 
             services.AddHttpClient("WebStoreAPI", client => client.BaseAddress = new Uri(Configuration["WebAPI"]))
                 .AddTypedClient<IValuesService, ValuesClient>()
@@ -94,7 +97,6 @@ namespace WebStore
 
             using (var scope = services.CreateScope())
                 scope.ServiceProvider.GetRequiredService<WebStoreDBInitializer>().Initialize();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -107,6 +109,7 @@ namespace WebStore
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseMiddleware<TestMiddleWare>();
 
             app.UseWelcomePage("/WelcomePage");
