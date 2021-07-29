@@ -10,12 +10,11 @@ namespace WebStore.WebAPI.Clients.Base
     public abstract class BaseClient : IDisposable
     {
         protected HttpClient Http { get; }
-        
+
         protected string Address { get; }
 
         protected BaseClient(HttpClient Client, string Address)
         {
-            //Http = new HttpClient();
             Http = Client;
             this.Address = Address;
         }
@@ -26,9 +25,9 @@ namespace WebStore.WebAPI.Clients.Base
             var response = await Http.GetAsync(url, Cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NoContent) return default;
             return await response
-                .EnsureSuccessStatusCode()
-                .Content.ReadFromJsonAsync<T>()
-                .ConfigureAwait(false);
+               .EnsureSuccessStatusCode()
+               .Content.ReadFromJsonAsync<T>(cancellationToken: Cancel)
+               .ConfigureAwait(false);
         }
 
         protected HttpResponseMessage Post<T>(string url, T item) => PostAsync(url, item).Result;
@@ -57,10 +56,10 @@ namespace WebStore.WebAPI.Clients.Base
             Dispose(true);
             //GC.SuppressFinalize(this);
         }
+
         //~BaseClient() => Dispose(false);
 
         private bool _Disposed;
-
         protected virtual void Dispose(bool disposing)
         {
             if (_Disposed) return;
@@ -69,7 +68,7 @@ namespace WebStore.WebAPI.Clients.Base
             if (disposing)
             {
                 // уничтожаем управляемые ресурсы
-                //Http.Dispose();  // если не Вы создали объект, то и не Вам его уничтожать
+                //Http.Dispose(); // если не Вы создали объект, то и не Вам его уничтожать!
             }
 
             // уничтожаем неуправляемые ресурсы при их наличии
