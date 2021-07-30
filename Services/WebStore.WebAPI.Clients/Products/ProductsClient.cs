@@ -27,7 +27,7 @@ namespace WebStore.WebAPI.Clients.Products
             return products.FromDTO(); 
         }
 
-        public Section GetSection(int id) => Get<SectionDTO>($"{Address}/sectioins/{id}").FromDTO();
+        public Section GetSection(int id) => Get<SectionDTO>($"{Address}/sections/{id}").FromDTO();
 
         public IEnumerable<Section> GetSections() => Get<IEnumerable<SectionDTO>>($"{Address}/sections").FromDTO();
     }
