@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using WebStore.Domain;
+using WebStore.Domain.DTO;
 using WebStore.Domain.DTO.Products;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces;
@@ -20,10 +21,10 @@ namespace WebStore.WebAPI.Clients.Products
 
         public Product GetProductById(int Id) => Get<ProductDTO>($"{Address}/{Id}").FromDTO();
 
-        public IEnumerable<Product> GetProducts(ProductFilter Filter = null)
+        public ProductsPage GetProducts(ProductFilter Filter = null)
         {
             var response = Post(Address, Filter ?? new ProductFilter());
-            var products = response.Content.ReadFromJsonAsync<IEnumerable<ProductDTO>>().Result;
+            var products = response.Content.ReadFromJsonAsync<ProductsPageDTO>().Result;
             return products.FromDTO(); 
         }
 
