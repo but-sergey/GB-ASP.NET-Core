@@ -1,37 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebStore.DAL.Context;
 using WebStore.Domain;
-using WebStore.Domain.DTO;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.Services.Services.InSQL
 {
-    public class SQLProductData : IProductData
+    public class SqlProductData : IProductData
     {
         private readonly WebStoreDB _db;
 
-        public SQLProductData(WebStoreDB db) => _db = db;
+        public SqlProductData(WebStoreDB db) => _db = db;
 
         public IEnumerable<Section> GetSections() => _db.Sections.Include(s => s.Products);
+
         public Section GetSection(int id) => _db.Sections.Include(s => s.Products).FirstOrDefault(s => s.Id == id);
 
-        public IEnumerable<Brand> GetBrands() => _db.Brands.Include(p => p.Products);
+        public IEnumerable<Brand> GetBrands() => _db.Brands.Include(b => b.Products);
+
         public Brand GetBrand(int id) => _db.Brands.Include(b => b.Products).FirstOrDefault(b => b.Id == id);
 
         public ProductsPage GetProducts(ProductFilter Filter = null)
         {
             IQueryable<Product> query = _db.Products
-                .Include(p => p.Brand)
-                .Include(p => p.Section);
+               .Include(p => p.Brand)
+               .Include(p => p.Section);
 
             if (Filter?.Ids?.Length > 0)
-            {
                 query = query.Where(product => Filter.Ids.Contains(product.Id));
-            }
             else
             {
                 if (Filter?.SectionId is { } section_id)
@@ -45,15 +43,15 @@ namespace WebStore.Services.Services.InSQL
 
             if (Filter is { PageSize: > 0 and var page_size, Page: > 0 and var page_number })
                 query = query
-                    .Skip((page_number - 1) * page_size)
-                    .Take(page_size);
+                   .Skip((page_number - 1) * page_size)
+                   .Take(page_size);
 
             return new ProductsPage(query.AsEnumerable(), total_count);
         }
 
         public Product GetProductById(int Id) => _db.Products
-            .Include(p => p.Brand)
-            .Include(p => p.Section)
-            .SingleOrDefault(p => p.Id == Id);
+           .Include(p => p.Brand)
+           .Include(p => p.Section)
+           .SingleOrDefault(p => p.Id == Id);
     }
 }

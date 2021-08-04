@@ -71,7 +71,7 @@ namespace WebStore.WebAPI
 
             services.AddScoped<ICartService, InCookiesCartService>();
 
-            services.AddScoped<IProductData, SQLProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
 
             services.AddScoped<IOrderService, SqlOrderService>();
 
