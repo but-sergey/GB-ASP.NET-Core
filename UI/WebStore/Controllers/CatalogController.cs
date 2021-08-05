@@ -29,7 +29,7 @@ namespace WebStore.Controllers
                 BrandId = BrandId,
                 SectionId = SectionId,
                 Page = Page,
-                PageSize = PageSize,
+                PageSize = page_size,
             };
 
             var (products, total_count) = _ProductData.GetProducts(filter);
