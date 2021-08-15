@@ -29,3 +29,15 @@
         </div>
     </div>
 </section>
+
+@section Scripts
+{ 
+    <script src="~/js/Catalog/CatalogLogic.js" asp-append-version="true"></script>
+    <script>
+        $(function () {
+            Catalog.init({
+                getViewLink: "@Url.Action("GetFeaturedItems", "Catalog")"
+            });
+        })
+    </script>
+}
